@@ -1,31 +1,11 @@
+# I hate this API.  ZERO examples ANYWHERE. Makes NO sense.
+
 import os
 import requests
 
 from enums import *
 from EatYoWaffles import *
-
-def get_headers():
-    """
-    Return headers dictionary with api key from .bash_profile
-    """
-    key = os.environ.get('DDV_API_KEY')
-    headers = {"X-API-Key":key}
-    return headers
-
-
-def make_request(endpoint):
-    """
-    Given an endpoint, make request and return json
-    """
-    headers = get_headers()
-    url = "https://www.bungie.net/platform/"
-    url += endpoint
-
-    r = requests.get(url, headers=headers)
-
-    print(r)
-    
-    return r.json()
+from basics import *
 
 def get_vendor_inventory(vendor):
     """
@@ -33,16 +13,33 @@ def get_vendor_inventory(vendor):
     """
     # NOTE: probably just gonna implement like one vendor for now but
 
+
+def get_weapon_stats(weapon=None):
+    
+    if weapon is None:
+        # shouldn't need this, just for testing
+        weapon = "The Palindrome"  # weapon name here
+
+    endpoint = "Destiny2/Manifest" #/DestinyInventoryItemDefinition"
+    r = make_request(endpoint)
+
+    print(r['Response'].keys())
+
 if __name__=='__main__':
 
+    # get_weapon_stats()
+
+   
+    
+    # NOTE: everything here down is the vendor stuff
 
     # GOAL:
     #endpoint=Destiny2/{membershipType}/Profile/{destinyMembershipId}/Character/{characterId}/Vendors/{vendorHash}/
     # GET VENDORS:
     #endpoint=Destiny2/{membershipType}/Profile/{destinyMembershipId}/Character/{characterId}/Vendors/
-    membershipType = membership_types['TigerSteam']
-    xbox_membtype = membership_types['TigerXbox']
-    destinyMembershipId = 6597792  # EatYoWaffles id
+    #membershipType = membership_types['TigerSteam']
+    #xbox_membtype = membership_types['TigerXbox']
+    #destinyMembershipId = 6597792  # EatYoWaffles id
 
 
     #endpoint = f"User/GetMembershipsById/{destinyMembershipId}/{membershipType}"
@@ -58,8 +55,8 @@ if __name__=='__main__':
     but I'm over it right now
     """
 
-    print(endpoint)
-    res = make_request(endpoint)
-    print(res)
+    #print(endpoint)
+    #res = make_request(endpoint)
+    #print(res)
 
 
